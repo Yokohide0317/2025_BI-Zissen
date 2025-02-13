@@ -121,7 +121,7 @@ qiime tools view <file>.qzv
 
 ```bash
 
-qiime tools export --input-path ./02_adapter/trimmed-seqs.qza --output-path ./02_adapter/outputs
+qiime tools export --input-path ./02_adapter/trimmed-seqs.qzv --output-path ./02_adapter/outputs
 
 # Forward配列の結果を可視化。qで終了。
 csvlens -d auto ./02_adapter/outputs/forward-seven-number-summaries.tsv
@@ -179,17 +179,22 @@ wget https://data.qiime2.org/classifiers/sklearn-1.4.2/silva/silva-138-99-nb-cla
 ```
 
 ```bash
+# ディレクトリの作成
+mkdir 04_taxonomy
 
+# 分類器を使って分類
 qiime feature-classifier classify-sklearn \
     --i-reads ./03_denoise/rep-seqs-dada2.qza \
     --i-classifier ./silva-138-99-nb-classifier.qza \
     --o-classification ./04_taxonomy/taxonomy.qza \
     --p-n-jobs 1
 
+# 分類結果を表形式で可視化
 qiime metadata tabulate \
     --m-input-file ./04_taxonomy/taxonomy.qza \
     --o-visualization ./04_taxonomy/taxonomy.qzv
 
+# 分類結果をバープロットで可視化
 qiime taxa barplot \
     --i-table ./03_denoise/table-dada2.qza \
     --i-taxonomy ./04_taxonomy/taxonomy.qza \
