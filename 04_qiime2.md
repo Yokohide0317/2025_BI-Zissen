@@ -117,6 +117,20 @@ qiime demux summarize --i-data ./02_adapter/trimmed-seqs.qza --o-visualization .
 qiime tools view <file>.qzv
 ```
 
+### `.qzv`データのエクスポートと`.tsv`の可視化。
+
+```bash
+
+qiime tools export --input-path ./02_adapter/trimmed-seqs.qza --output-path ./02_adapter/outputs
+
+# Forward配列の結果を可視化。qで終了。
+csvlens -d auto ./02_adapter/outputs/forward-seven-number-summaries.tsv
+# Reverse配列の結果を可視化。qで終了。
+csvlens -d auto ./02_adapter/outputs/reverse-seven-number-summaries.tsv
+
+```
+
+
 ## 03_denoise
 
 ```bash
@@ -147,6 +161,39 @@ qiime feature-table tabulate-seqs --i-data ./03_denoise/rep-seqs-dada2.qza --o-v
 
 ## 04_taxonomy
 
+### 分類器(データベース)のダウンロード
+
+[https://docs.qiime2.org/2024.10/](https://docs.qiime2.org/2024.10/)
+![](./img//04_classifier-download.png)
+
+[https://docs.qiime2.org/2024.10/data-resources/](https://docs.qiime2.org/2024.10/data-resources/)
+![](./img//04_classifier-download2.png)
+
+![](./img/04_classifier-download3.png)
+
 ```bash
 
+# コピーしたURLからダウンロード
+wget https://data.qiime2.org/classifiers/sklearn-1.4.2/silva/silva-138-99-nb-classifier.qza
+
 ```
+
+```bash
+
+qiime feature-classifier classify-sklearn \
+    --i-reads ./03_denoise/rep-seqs-dada2.qza \
+    --i-classifier ./silva-138-99-nb-classifier.qza \
+    --o-classification ./04_taxonomy/taxonomy.qza \
+    --p-n-jobs 1
+
+qiime metadata tabulate \
+    --m-input-file ./04_taxonomy/taxonomy.qza \
+    --o-visualization ./04_taxonomy/taxonomy.qzv
+
+qiime taxa barplot \
+    --i-table ./03_denoise/table-dada2.qza \
+    --i-taxonomy ./04_taxonomy/taxonomy.qza \
+    --o-visualization ./04_taxonomy/taxa-bar-plots.qzv
+
+```
+
