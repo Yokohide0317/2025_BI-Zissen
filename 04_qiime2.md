@@ -86,7 +86,7 @@ qiime cutadapt trim-paired \
     --p-minimum-length 200 \
     --p-discard-untrimmed \
     --o-trimmed-sequences ./02_adapter/trimmed-seqs.qza \
-    --p-cores 1
+    --p-cores 3
 
 # visualizationファイルへ出力。
 qiime demux summarize --i-data ./02_adapter/trimmed-seqs.qza --o-visualization ./02_adapter/trimmed-seqs.qzv
@@ -146,7 +146,7 @@ qiime dada2 denoise-paired \
     --o-table ./03_denoise/table-dada2.qza \
     --o-representative-sequences ./03_denoise/rep-seqs-dada2.qza \
     --o-denoising-stats ./03_denoise/stats-dada2.qza \
-    --p-n-threads 1
+    --p-n-threads 3
 
 # 各qzaファイルをqzvファイルへ
 ## 何%削除されたなどの、DADA2のステータス
@@ -187,7 +187,7 @@ qiime feature-classifier classify-sklearn \
     --i-reads ./03_denoise/rep-seqs-dada2.qza \
     --i-classifier ./silva-138-99-nb-classifier.qza \
     --o-classification ./04_taxonomy/taxonomy.qza \
-    --p-n-jobs 1
+    --p-n-jobs 3
 
 # 分類結果を表形式で可視化
 qiime metadata tabulate \
@@ -201,4 +201,3 @@ qiime taxa barplot \
     --o-visualization ./04_taxonomy/taxa-bar-plots.qzv
 
 ```
-
