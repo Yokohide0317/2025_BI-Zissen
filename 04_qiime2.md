@@ -50,6 +50,12 @@ manifest.tsv
 seqfu metadata -f manifest -s _S raw-data > manifest.tsv
 ```
 
+## qiime2環境のactivate
+
+```bash
+conda activate qiime2-amplicon-2024.10
+```
+
 ## 01_data-import
 
 ```bash
