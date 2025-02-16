@@ -1,5 +1,12 @@
 ## はじめに
 
+
+※実習環境にて、一度ログアウトするとcondaが使えなくなるようです。その場合は、以下のコマンドを再度実行してください。
+
+```bash
+ eval "$(/home/coder/miniforge3/bin/conda shell.zsh hook)"
+```
+
 ### 初期値
 
 `raw-data/`中に、各自のデータをお配りしました。<br>
