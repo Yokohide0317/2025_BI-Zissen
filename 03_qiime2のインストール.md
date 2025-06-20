@@ -1,22 +1,26 @@
 # Qiime2関連URL
 
 - [Qiime2 Top](https://qiime2.org/)
-- [Document](https://docs.qiime2.org/2024.10/)
-- [Install](https://docs.qiime2.org/2024.10/install/)
+- [Document](https://amplicon-docs.qiime2.org/en/latest/)
+- [Install](https://library.qiime2.org/quickstart/amplicon)
 
 ※ Qiime2は定期的にバージョンアップされており、そのたびにドキュメントも更新されています。URL中の`2024.10`は、バージョンを指しています。できるだけ最新を参照してください。
 
 # Install
 ### 1. Installページにアクセス
-- [https://docs.qiime2.org/2024.10/install/](https://docs.qiime2.org/2024.10/install/)
-- `Natively installing QIIME 2`をクリック。
-![](./img/03_qiime2_install-page.png)
+- [https://library.qiime2.org/quickstart/amplicon](https://library.qiime2.org/quickstart/amplicon)
+- `Using conda`をクリック。
+
+<br>
+
+※ [ドキュメントページ](https://amplicon-docs.qiime2.org/en/latest/)から行く場合はこちら<br>
+
+![](./img/03_qiime2_install-page_2025.png)
 
 ### 2. condaでのインストール方法を選択
-- 今回は、`Amplicon`解析、
-`Install QIIME 2 within a conda environment` > `QIIME 2 Amplicon Distribution`
+- 今回は、`Conda` を使用します。`Using Conda` > `Install the base distribution’s conda environment`
 を見つける。
-- `Linux`をクリック。
+- `Linux / Windows WSL`をクリック。
 ![](./img//03_qiime2_install-page-linux.png)
 
 ### 3. インストール
@@ -45,12 +49,12 @@ conda env list
 # conda environments:
 #
 base                 * /home/coder/miniforge3
-qiime2-amplicon-2024.10   /home/coder/miniforge3/envs/qiime2-amplicon-2024.10
+qiime2-amplicon-2025.4   /home/coder/miniforge3/envs/qiime2-amplicon-2025.4
 ```
 
-`qiime2-amplicon-2024.10`をコピーし、以下のコマンドを実行して有効化します。<br>
+`qiime2-amplicon-2025.4`をコピーし、以下のコマンドを実行して有効化します。<br>
 ```
-conda activate qiime2-amplicon-2024.10
+conda activate qiime2-amplicon-2025.4
 ```
 
 これで、Qiime2環境が有効化されました。<br>

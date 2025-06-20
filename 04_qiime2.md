@@ -53,7 +53,7 @@ seqfu metadata -f manifest -s _S raw-data > manifest.tsv
 ## qiime2環境のactivate
 
 ```bash
-conda activate qiime2-amplicon-2024.10
+conda activate qiime2-amplicon-2025.4
 ```
 
 ## 01_data-import
@@ -174,13 +174,8 @@ qiime feature-table tabulate-seqs --i-data ./03_denoise/rep-seqs-dada2.qza --o-v
 
 ### 分類器(データベース)のダウンロード
 
-[https://docs.qiime2.org/2024.10/](https://docs.qiime2.org/2024.10/)
+[https://library.qiime2.org/data-resources](https://library.qiime2.org/data-resources)
 ![](./img//04_classifier-download.png)
-
-[https://docs.qiime2.org/2024.10/data-resources/](https://docs.qiime2.org/2024.10/data-resources/)
-![](./img//04_classifier-download2.png)
-
-![](./img/04_classifier-download3.png)
 
 ```bash
 
