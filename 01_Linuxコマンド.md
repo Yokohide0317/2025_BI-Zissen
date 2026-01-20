@@ -1,164 +1,724 @@
-# はじめに
+# はじめに：基本ルール
 
-### `Enter`でその行を実行。
-
-- コマンドを入力後、`Enter`を押すと実行。
-- つまり、改行ができない。見栄えのために改行したい場合は、`\`(バックスラッシュ)を入力する。(日本語環境では、`¥`を使用する。)
+### コマンドの実行方法
+- コマンドを入力後、`Enter`キーを押して実行
+- **重要**: 半角スペース区切りで入力（全角スペースは使わないで！）
 
 ### 基本文型
+`コマンド` `引数` `オプション`
 
-- `MainCommand`\_`SubCommand`\_`--OptionFlag`\_`引数`<br>
-（`_`は半角スペース。`SubCommand`や`--OptionFlag`などは、ツールによって無い場合や、複数ある場合もある。）
+**例**: `ls -l data/`
+- `ls`: コマンド（リスト表示）
+- `-l`: オプション（詳細表示）
+- `data/`: 引数（対象ディレクトリ）
 
-# よく使うコマンド/概念
+---
 
-### コマンド
+# 超重要：Tabキーの補完機能 ⭐
 
-| コマンド | 説明 | 例1 | 例2 |
-| :---: | :---: | :---: | :---: |
-| ls | ファイル/ディレクトリのリストを表示 | ls | ls ./data/ |
-| cd | ディレクトリを移動 | cd ./data/ | cd ../ |
-| pwd | 現在の場所を表示 | pwd | - |
-| mkdir | ディレクトリを作成 | mkdir dir01 | mkdir dir01/dir02 |
-| mv | ファイルを移動(rename) | mv file.txt ./data/ | mv fire.txt file.txt |
-| cp | ファイルをコピー | cp file.txt ./data/ | cp file1.txt file2.txt |
-| rm | ファイル/ディレクトリを削除 | rm ./file1.txt | rm -r ./data |
-| nano | (テキストエディタ) | nano ./file3.txt | (使い方については検索してください) |
-| cat | ファイルの中身を結合/表示 | cat ./file1.txt | cat ./file1.txt ./file2.txt > ./file3.txt |
-| less | ファイルの中身を少しずつ表示 | less ./file1.txt | (`q`を押して終了) |
-| wget | web上からファイルをダウンロード | wget http://..... | - |
+**最も重要な機能**：`Tab`キーで自動入力！
 
-### ディレクトリ階層の指定
+例：`ls da` と入力してから `Tab`キーを押す → `ls data/` に自動補完
 
-Linuxでは、`/`(スラッシュ)を区切りにフォルダ階層ができています。
+- 補完候補が1つしかない時：自動で補完される
+- 複数ある時：`Tab`を2回押すと候補が表示される
 
-```text
-mydir/
-├── dir01/
-│   ├── text1.txt
-│   ├── dir02/
-│   │   └── text2.txt
-...
+これを使うと、入力ミスが激減します！**必ず使ってください。**
+
+---
+
+# 今日の練習流れ
+
+「入力 → 確認」のサイクルで進めます。各ステップで✅チェックマークがついたら次へ進んでください。
+
+---
+
+# Step 1: 今どこにいる？
+
+### 現在の場所を確認：`pwd`
+
+```bash
+pwd
 ```
 
-`mydir`にいる時を考えます。
-| ファイル |　相対的に指定 |
-| --- | --- |
-| (現在いる場所) | `./` |
-| dir01 | `./dir01` |
-| text1.txt | `./dir01/text1.txt` |
-| text2.txt | `./dir01/dir02/text2.txt` |
-
-`dir02`に移動したい場合、
-
-- `cd ./dir01/dir02/`
-- `cd ./dir01`, `cd ./dir02`<br>
-のいずれかで移動できます。(1回の実行で移動するか、2回に分けて移動するかの違い)
-
-一つ上の階層を指定したい時は`../`。<br>
-`dir02`にいる時、
-
-| ファイル |　相対的に指定 |
-| --- | --- |
-| text2.txt | `./text2.txt` |
-| text1.txt | `../text1.txt` |
-| dir01 | `../../dir01` |
-
-
-### ホームディレクトリについて
-
-Linuxのファイルシステム上、`user01`さんに割り当てられるホームディレクトリは、`/home/user01`です。<br>
-`/`はいわゆる`Cドライブ`の一番上で、PCの設定ファイルなどが含まれるので、基本的に`/home/<user名>`以下で作業します。<br><br>
-
-`~`(チルダ)を使うと便利です。また、`cd`にて、引数を指定しなかった場合は自動的に`/home/<user名>`へ移動します。
-
-`/home/user01/dir01/dir02/dir03`にて、`dir03`にいる場合、以下は同じ結果になります。
-
-- `cd ../../../`
-- `cd /home/user01/`
-- `cd ~/`
-
-# 注意点
-
-### エラーについて
-
-エラー表示を無視すると、思いがけない失敗に繋がります。<br>
-例えば、料理のレシピにて、
-
-```text
-1. 醤油、みりん、オイスターソースを混ぜ、ソースを作ります。
-2. 鍋でエビを炒めます。
-3. ソースを鍋に入れます。
+**期待される出力**:
+```
+/home/coder
 ```
 
-- `ERROR: 醤油がありません。`が発生し無視 →ソースが作られていないで3番で止まってしまいます。(早めに気づくのでOK)<br>
-- `ERROR: エビがありません。`が発生し無視 →3番は実行できますが、結果がおかしくなります。(最悪のパターン)
+✅ `/home/coder` と表示されたらOK！
 
-どちらにせよエラーはつきものなので、慌てず、出力される表示をよく読んで対応する必要があります。<br>
-※正常→(基本的に)出力なし<br>
+---
 
-### 補完機能
+### ファイル/フォルダを確認：`ls`
 
-ディレクトリやファイル名が長いと、どうしてもスペルミスなどをしてしまうことが多くなります。→`No such file or directory`<br>
-
-```text
-mydir/
-├── dir01/
-│   ├── text1.txt
-│   ├── tatituteto.txt
-│   ├── dir02/
-│   │   └── text2.txt
-...
+```bash
+ls
 ```
 
-において、`dir01/text1.txt`を削除したい場合、<br>
-`rm dir01/te` まで入力すると、`dir01/`の中に、`te`から始まるオブジェクトは`text1.txt`のみが存在しているので、<br>
-`tabキー`を押すと、残りの`xt1.txt`を自動入力してくれます。<br><br>
+何が表示されましたか？（ファイルやフォルダの一覧が見えるはず）
 
-もし、`rm dir01/t` まで入力した場合、`t`から始まるオブジェクトは`text1.txt`と`tatituteto.txt`の２つがあります。<br>
-そのため、一度で補完を行うことはできません。ただし、この際に`tabキー`を2回連続で押すことで候補となるオブジェクトの一覧が表示されます。<br><br>
+---
 
-ここで注意したいのが、<br>
-`ls`、`cd`、`cat`、`less`などの、「既にオブジェクトが存在しているもの」に対して指定する場合は補完が活用できます。一方で、<br>
-`mkdir`、`cp`、`wget`など、「新規に作成する場合」や「このPCが把握していないもの」に関しては、補完は使えません。<br>
-※ cpで、「既に存在するファイルの中身を上書きをしたい場合」や「既に存在するディレクトリ内へ移動する場合」などはその限りではありません。
+# Step 2: フォルダ移動の基本
 
-# 演習問題
+### ホームディレクトリに移動
 
-### 演習1
-
-`cd`、`pwd`、`ls`、`mkdir`を使い、以下のファイル構造を作成してください。
-
-```text
-workspace/ (/home/coder/workspace/)
-    ├── kokugo/
-    │   ├── kanji/
-    │   └── waka/
-    │
-    ├── suugaku/
-    │   ├── bibun/
-    │   └── sekibun/
-    │
-    └── rika/
-       ├── seibutu/
-       │   └── seikagaku/
-       └── buturi/
+```bash
+cd ~
+pwd
 ```
 
-### 演習2
+**期待される出力**:
+```
+/home/coder
+```
 
-`seikagaku/`へ移動し、`pwd`で`/home/coder/workspace/rika/seibutu/seikagaku`が表示されることを確認してください。
+✅ `/home/coder` と表示されたらOK！
 
-### 演習3
+**ポイント**:
+- `~` (チルダ) = ホームディレクトリの省略形
+- `cd` だけで `Enter` を押しても同じ効果
 
-`seikagaku/`から、`waka/`へ一回で移動してください。(失敗した場合は`cd ~/workspace/rika/seibutu/seikagaku`で戻れます。)
+---
 
-### 演習4
+### 作業用フォルダに移動
 
-`bibun/`と`sekibun/`を削除し、`bisekibun/`を作成してください。
+```bash
+cd workspace
+pwd
+```
 
-### +α
+**期待される出力**:
+```
+/home/coder/workspace
+```
 
-`bisekibun/`の中に、`bibun.txt`および`sekibun.txt`を作成し、それぞれ`bibun`と`sekibun`と入力してください。<br>
-ヒント： `nano`を使用。
+✅ `/home/coder/workspace` と表示されたらOK！
 
+---
+
+# Step 3: Tab補完の練習 ⭐
+
+**ここが一番大事！** Tab補完を体に覚えさせましょう。
+
+### 練習1: Tab補完で移動
+
+```bash
+cd w
+```
+
+ここで `Tab` キーを押してください → 自動で `workspace` に補完されます！
+
+補完されたら `Enter` を押して移動。
+
+### 練習2: Tab補完で確認
+
+```bash
+ls w
+```
+
+`Tab` キーを押すと、候補が表示されます。もう一度 `Tab` を押すと補完されます。
+
+✅ Tab補完が使えるようになった！
+
+---
+
+# Step 4: フォルダを作る
+
+### 練習用フォルダ作成：`mkdir`
+
+```bash
+mkdir test
+ls
+```
+
+`test` というフォルダが作成されたことを確認。
+
+### 作成したフォルダに移動
+
+```bash
+cd test
+pwd
+```
+
+**期待される出力**:
+```
+/home/coder/workspace/test
+```
+
+✅ 作成して移動できたらOK！
+
+---
+
+# Step 5: 一つ上に戻る
+
+### 親ディレクトリに移動：`cd ..`
+
+```bash
+cd ..
+pwd
+```
+
+**期待される出力**:
+```
+/home/coder/workspace
+```
+
+✅ `/home/coder/workspace` に戻れたらOK！
+
+**ポイント**:
+- `..` = 一つ上のフォルダ（親ディレクトリ）
+- `.` = 今いるフォルダ（カレントディレクトリ）
+
+---
+
+# Step 6: 作ったフォルダを削除
+
+### フォルダ削除：`rm -r`
+
+```bash
+rm -r test
+ls
+```
+
+`test` フォルダが消えていることを確認。
+
+**ポイント**:
+- `rm -r` = フォルダと中身を全て削除
+- **注意**: 削除は取り返せません！
+
+✅ 削除できたらOK！
+
+---
+
+# 応用：階層構造を作ってみよう
+
+目標：以下のフォルダ構造を作る
+
+```text
+project/
+├── data/
+└── results/
+```
+
+### 実践
+
+1. `project` フォルダを作る
+2. `project` に移動
+3. `data` と `results` を作る
+4. 一つずつ移動して確認
+
+**ヒント**: Tab補完を活用！
+
+### 実行例（答え）
+
+```bash
+mkdir project
+cd pro[TAB]
+ls
+mkdir data results
+ls
+cd da[TAB]
+pwd
+cd ..
+cd re[TAB]
+pwd
+```
+
+**期待される出力**:
+```
+/home/coder/workspace/project
+/home/coder/workspace/project/results
+```
+
+✅ 全てのフォルダを作成できたらOK！
+
+---
+
+# 重要なディレクトリ指定方法
+
+| 指定 | 意味 |
+|------|------|
+| `./` | 今いるフォルダ |
+| `../` | 一つ上のフォルダ |
+| `~` | ホームディレクトリ |
+
+**例**:
+```bash
+cd ./data        # 今いるフォルダの中のdataへ
+cd ../data       # 一つ上のフォルダの中のdataへ
+cd ~/workspace   # ホームのworkspaceへ
+```
+
+---
+
+# 完成チェック！
+
+## 基礎編（必須）
+
+以下の操作ができるようになったらOK！
+
+- [ ] `pwd` で現在の場所を表示できる
+- [ ] `ls` でファイル/フォルダを確認できる
+- [ ] `cd` でフォルダを移動できる
+- [ ] `cd ..` で一つ上に戻れる
+- [ ] `mkdir` でフォルダを作れる
+- [ ] `rm -r` でフォルダを削除できる
+- [ ] **Tabキーで補完が使える！** ←これが一番重要
+
+## 実践編（Qiime2で必要）
+
+Qiime2解析に向けて、以下の操作もできるようになりましょう：
+
+- [ ] `cat` でファイル内容を確認できる
+- [ ] `less` で大きなファイルを閲覧できる（`q`で終了）
+- [ ] `echo` で変数の中身を確認できる
+- [ ] `echo > file` で簡単なファイルを作成できる
+- [ ] `変数='値'` で変数を設定できる
+- [ ] `cp` でファイルをコピーできる
+- [ ] `mv` でファイルを移動・名前変更できる
+- [ ] `wget` でファイルをダウンロードできる
+- [ ] `grep` でファイル内を検索できる
+
+全てチェックできましたか？素晴らしい！Qiime2解析の準備が整いました！🎉
+
+**📝 次のステップ：nanoエディタを使ってファイルを自由に作成・編集したい！**
+
+→ [02_nanoの使い方](02_nanoの使い方.md) で詳しく学びましょう！
+
+---
+
+# 補足：エラーへの対処法
+
+Linuxではエラーが出るのは普通です。慌てずにエラーメッセージを読みましょう。
+
+**よくあるエラー例**:
+
+```
+No such file or directory
+```
+→ ファイル名が間違っています。Tab補完を使って確認しましょう。
+
+```
+command not found
+```
+→ コマンドのスペルミスです。
+
+**重要**: エラーが出たら、無視せずにしっかり読んで対処すること！
+
+# 実践：Qiime2解析で使うテクニック
+
+Qiime2の解析では、ファイルの閲覧や変数の設定など、より実践的な操作が必要です。
+
+### Step 1: テキストファイルの中身を確認
+
+まず、サンプルフォルダを作成します：
+
+```bash
+cd ~/workspace
+mkdir practice
+cd practice
+```
+
+#### サンプルファイルを作成
+
+簡単なコマンドでファイルを作ります：
+
+```bash
+echo "Hello, Qiime2!" > sample.txt
+```
+
+#### ファイルの中身を確認：`cat`
+
+```bash
+cat sample.txt
+```
+
+**期待される出力**:
+```
+Hello, Qiime2!
+```
+
+✅ `Hello, Qiime2!` と表示されたらOK！
+
+---
+
+**📝 テキストファイルを自分で作成・編集したい？**
+
+`nano`エディタの使い方は、次の章で詳しく説明しています！
+
+→ [02_nanoの使い方](02_nanoの使い方.md)
+
+---
+
+### Step 2: 大きなファイルの閲覧：`less`
+
+Qiime2では、ログファイルやデータファイルを閲覧することがよくあります。
+
+#### 大きなファイルを作成
+
+```bash
+seq 1 1000 > numbers.txt
+```
+
+これで1〜1000までの数字を含むファイルを作成しました。
+
+#### lessで閲覧
+
+```bash
+less numbers.txt
+```
+
+**操作方法**:
+- `↓` または `Space`: 下にスクロール
+- `↑` または `b`: 上にスクロール
+- `/文字`: 検索（例：`/500` で500を検索）
+- `q`: 終了
+
+✅ `q` で終了できたらOK！
+
+---
+
+### Step 2: 変数を使ってみる
+
+Qiime2では、配列情報を変数に保存して使います。
+
+#### 変数の設定と確認
+
+```bash
+MY_PRIMER='ATCGATCG'
+echo $MY_PRIMER
+```
+
+**期待される出力**:
+```
+ATCGATCG
+```
+
+✅ `ATCGATCG` と表示されたらOK！
+
+#### 複数の変数を使う
+
+```bash
+FWD='CCTACGGGNGGCWGCAG'
+REV='GACTACHVGGGTATCTAATCC'
+echo $FWD
+echo $REV
+```
+
+✅ 両方の配列が表示されたらOK！
+
+---
+
+**💡 変数をファイルに保存する**
+
+```bash
+echo $FWD > primer.txt
+cat primer.txt
+```
+
+✅ ファイルに保存できたらOK！
+
+---
+
+### Step 3: ファイルのコピーと移動
+
+#### ファイルのコピー：`cp`
+
+```bash
+cp sample.txt sample_backup.txt
+ls
+```
+
+`sample_backup.txt` が作成されたことを確認。
+
+#### ファイルの移動/名前変更：`mv`
+
+```bash
+mv sample_backup.txt renamed.txt
+ls
+```
+
+`sample_backup.txt` が消え、`renamed.txt` ができていることを確認。
+
+✅ コピーと移動ができたらOK！
+
+---
+
+### Step 4: ファイルのダウンロード：`wget`
+
+Qiime2では、分類器などのデータをダウンロードします。
+
+#### サンプルデータをダウンロード
+
+```bash
+wget https://raw.githubusercontent.com/Yokohide0317/2025_BI-Zissen/refs/heads/main/01_Linux%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89.md
+```
+
+ダウンロードが完了したら、中身を確認：
+
+```bash
+cat primer-sequence.txt
+```
+
+✅ ファイルがダウンロードできて、中身が見えたらOK！
+
+---
+
+### Step 5: ファイルの内容を検索
+
+特定の文字列がファイルに含まれているか検索します。
+
+#### grepで検索
+
+```bash
+grep "ATCG" primer-sequence.txt
+```
+
+**期待される出力**: "ATCG" を含む行が表示される
+
+#### 特定の単語を検索（単語単位）
+
+```bash
+grep -w "sequence" primer-sequence.txt
+```
+
+✅ 検索ができたらOK！
+
+---
+
+# 実践的な課題：解析シミュレーション
+
+以下のようなシナリオを想定して、実際の作業フローを練習しましょう。
+
+### 課題：Qiime2解析の準備
+
+1. `qiime_analysis/` というフォルダを作成
+2. `data/` と `results/` サブフォルダを作成
+3. `data/` に移動し、Primer配列を変数に設定
+4. `data/` に `metadata.txt` を作成（echoで簡単に作成）
+5. 作成したファイルを `results/` にコピー
+6. `qiime_analysis/` に戻って構造を確認
+
+### 実行例（ヒント）
+
+```bash
+cd ~/workspace
+mkdir qiime_analysis
+cd qiime_analysis
+mkdir data results
+cd data
+FWD='CCTACGGGNGGCWGCAG'
+REV='GACTACHVGGGTATCTAATCC'
+echo $FWD > primer.txt
+echo $REV >> primer.txt
+echo "sample-id,treatment" > metadata.txt
+echo "sample1,control" >> metadata.txt
+echo "sample2,treatment" >> metadata.txt
+cp primer.txt ../results/
+cp metadata.txt ../results/
+cd ..
+ls -R
+```
+
+✅ フォルダ構造とファイルの中身を確認して完了！
+
+---
+
+## ここで学んだコマンドのまとめ
+
+| コマンド | Qiime2での用途 |
+|---------|---------------|
+| `cat` | ファイル内容の確認 |
+| `less` | ログファイルの閲覧 |
+| `echo` | 変数の中身の確認、ファイル作成 |
+| `='...'` | Primer配列などの変数設定 |
+| `cp` | ファイルのバックアップ |
+| `mv` | ファイルの名前変更・移動 |
+| `wget` | 分類器のダウンロード |
+| `grep` | ログやデータの検索 |
+
+**💡 テキストファイルを自分で作成・編集したい？**
+
+メタデータファイルを手動で作成・編集したい場合は、次の章を参照！
+
+→ [02_nanoの使い方](02_nanoの使い方.md)
+
+これらはQiime2解析で実際に使うテクニックです！
+
+---
+
+---
+
+# チャレンジ：より実践的なシナリオ
+
+自信のある方は、より複雑なシナリオに挑戦してみましょう。
+
+### シナリオ1: バッチ処理の準備
+
+複数のサンプルデータを扱う準備をします。
+
+```bash
+cd ~/workspace
+mkdir batch_analysis
+cd batch_analysis
+
+# サンプルフォルダの作成
+mkdir -p raw_data/{sample1,sample2,sample3}
+mkdir processed results/{tables,plots}
+
+# 構造を確認
+tree batch_analysis 2>/dev/null || ls -R batch_analysis
+```
+
+### シナリオ2: メタデータファイルの作成
+
+各サンプルのメタデータを作成します。
+
+```bash
+cd batch_analysis
+echo -e "sample-id\tcondition\treatment" > metadata.tsv
+echo -e "sample1\tcontrol\tnone" >> metadata.tsv
+echo -e "sample2\ttreatment\tdrugA" >> metadata.tsv
+echo -e "sample3\ttreatment\tdrugB" >> metadata.tsv
+```
+
+保存して終了したら、内容を確認：
+
+```bash
+cat metadata.tsv
+```
+
+### シナリオ3: 設定ファイルの作成とバックアップ
+
+解析パラメータを設定ファイルとして保存し、バックアップを作成します。
+
+```bash
+cd batch_analysis
+
+# 設定ファイル作成
+cat > config.txt << EOF
+[General]
+version=2025.4
+threads=4
+
+[Primer]
+forward=CCTACGGGNGGCWGCAG
+reverse=GACTACHVGGGTATCTAATCC
+EOF
+
+# バックアップ作成
+cp config.txt config_backup.txt
+ls -lh config*
+```
+
+### シナリオ4: ログファイルの検索
+
+解析中にログファイルを検索する練習です。
+
+```bash
+# サンプルログファイル作成
+cat > analysis.log << EOF
+[INFO] Starting analysis...
+[INFO] Importing data...
+[ERROR] Sample2 quality check failed
+[INFO] Denoising sample1...
+[INFO] Denoising sample3...
+[WARN] Low read count in sample1
+[INFO] Taxonomy classification complete
+EOF
+
+# エラーのみを検索
+grep ERROR analysis.log
+
+# 警告を検索
+grep WARN analysis.log
+
+# 情報メッセージを数える
+grep -c INFO analysis.log
+```
+
+✅ 各ステップで期待通りの結果が得られたら完了！
+
+---
+
+# トラブルシューティング実習
+
+Linuxコマンドでよくあるトラブルと解決方法を練習します。
+
+### トラブル1: ファイル権限の問題
+
+```bash
+cd ~/workspace/practice
+cat testfile.txt
+```
+
+このコマンドがエラーになる場合：
+
+```bash
+ls -l testfile.txt
+```
+
+権限がない場合の対処方法を確認（読み取り専用など）
+
+### トラブル2: スペースを含むファイル名
+
+```bash
+cd ~/workspace/practice
+touch "my data.txt"
+ls
+```
+
+スペースを含むファイル名の扱い方：
+
+```bash
+# 正しい方法
+cat "my data.txt"
+
+# 間違った方法
+cat my data.txt  # これはエラーになる
+```
+
+### トラブル3: 隠しファイルの表示
+
+```bash
+ls -a
+```
+
+`.`で始まる隠しファイルが見えますか？
+
+```bash
+cat .bashrc 2>/dev/null || echo "No .bashrc file"
+```
+
+---
+
+# 参考コマンド一覧
+
+| コマンド | 説明 | 使用例 |
+|---------|------|--------|
+| `pwd` | 現在の場所を表示 | `pwd` |
+| `ls` | ファイル/フォルダ一覧 | `ls`<br>`ls -l`（詳細表示） |
+| `cd` | フォルダ移動 | `cd data`<br>`cd ..`<br>`cd ~` |
+| `mkdir` | フォルダ作成 | `mkdir data`<br>`mkdir -p a/b/c`（階層ごと作成） |
+| `rm` | ファイル削除 | `rm file.txt` |
+| `rm -r` | フォルダ削除 | `rm -r data/` |
+| `cp` | コピー | `cp file1.txt file2.txt` |
+| `mv` | 移動/名前変更 | `mv file.txt data/`<br>`mv old.txt new.txt` |
+| `cat` | ファイル内容表示 | `cat file.txt` |
+
+---
+
+# おめでとうございます！🎉
+
+Linuxコマンドの基本をマスターしました！
+
+**キーポイント**:
+- Tab補完を常に使うこと！
+- `pwd`, `ls`, `cd`, `mkdir`, `rm -r` が使えること
+- エラーが出ても慌てずに読むこと
+
+次はnanoエディタの使い方を学びましょう！
+
+→ [02_nanoの使い方](02_nanoの使い方.md)
