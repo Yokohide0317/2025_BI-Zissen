@@ -4,7 +4,7 @@
 - [Document](https://amplicon-docs.qiime2.org/en/latest/)
 - [Install](https://library.qiime2.org/quickstart/amplicon)
 
-※ Qiime2は定期的にバージョンアップされており、そのたびにドキュメントも更新されています。URL中の`2024.10`は、バージョンを指しています。できるだけ最新を参照してください。
+※ Qiime2は定期的にバージョンアップされており、そのたびにドキュメントも更新されています。URL中の`2025.10`は、バージョンを指しています。できるだけ最新を参照してください。
 
 # Install
 ### 1. Installページにアクセス
@@ -49,12 +49,12 @@ conda env list
 # conda environments:
 #
 base                 * /home/coder/miniforge3
-qiime2-amplicon-2025.4   /home/coder/miniforge3/envs/qiime2-amplicon-2025.4
+qiime2-amplicon-2025.10   /home/coder/miniforge3/envs/qiime2-amplicon-2025.10
 ```
 
-`qiime2-amplicon-2025.4`をコピーし、以下のコマンドを実行して有効化します。<br>
+`qiime2-amplicon-2025.10`をコピーし、以下のコマンドを実行して有効化します。<br>
 ```
-conda activate qiime2-amplicon-2025.4
+conda activate qiime2-amplicon-2025.10
 ```
 
 これで、Qiime2環境が有効化されました。<br>
