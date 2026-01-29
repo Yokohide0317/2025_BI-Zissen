@@ -53,7 +53,7 @@ seqfu metadata -f manifest -s _S raw-data > manifest.tsv
 ## qiime2環境のactivate
 
 ```bash
-conda activate qiime2-amplicon-2025.4
+conda activate qiime2-amplicon-2025.10
 ```
 
 ## 01_data-import
@@ -180,6 +180,8 @@ qiime feature-table tabulate-seqs --i-data ./03_denoise/rep-seqs-dada2.qza --o-v
 ```bash
 
 # コピーしたURLからダウンロード
+
+# ※以下のURLは例です。必ずライブラリページから最新のURLをコピーしてください。
 wget https://data.qiime2.org/classifiers/sklearn-1.4.2/silva/silva-138-99-nb-classifier.qza
 
 ```
