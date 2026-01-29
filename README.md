@@ -8,6 +8,7 @@
 - [03_conda環境の設定](03_conda環境の設定.md)
 - [04_qiime2のインストール](04_qiime2のインストール.md)
 - [05_qiime2](05_qiime2.md)
+- [06_Nextflowの紹介](06_Nextflowの紹介.md)
 
 ## 注意
 
