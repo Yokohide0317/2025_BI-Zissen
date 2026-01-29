@@ -134,6 +134,9 @@ qiime tools view <file>.qzv
 
 qiime tools export --input-path ./02_adapter/trimmed-seqs.qzv --output-path ./02_adapter/outputs
 
+# csvlensをインストール
+conda install csvlens -c conda-forge
+
 # Forward配列の結果を可視化。qで終了。
 csvlens -d auto ./02_adapter/outputs/forward-seven-number-summaries.tsv
 # Reverse配列の結果を可視化。qで終了。
