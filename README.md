@@ -9,3 +9,9 @@
 - [04_qiime2のインストール](04_qiime2のインストール.md)
 - [05_qiime2](05_qiime2.md)
 
+## 注意
+
+当日の環境で、ネットワークエラーが出る場合は、proxyを外す。
+```
+unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY
+```
