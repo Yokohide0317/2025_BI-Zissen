@@ -160,6 +160,7 @@ qiime dada2 denoise-paired \
     --o-table ./03_denoise/table-dada2.qza \
     --o-representative-sequences ./03_denoise/rep-seqs-dada2.qza \
     --o-denoising-stats ./03_denoise/stats-dada2.qza \
+    --o-base-transition-stats ./03_denoise/base-transition-stats.qza
     --p-n-threads 3
 
 # 各qzaファイルをqzvファイルへ
